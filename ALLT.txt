@@ -1,0 +1,1278 @@
+____________________________________________________________ 1&2
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun LastNC (somelist &optional (rest 0))
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+    
+(setq mylist (list 0 4 9 4 41))
+(setq newlist (LastNC mylist 2))
+(print newlist)
+
+_____________________________________________________________ 3
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+    
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(setq mylist (list 0 3 9 4 41))
+(setq K (KEL mylist 1))
+(print K)
+_____________________________________________________________ 4
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(setq mylist (list 0 3 9 4 41))
+(setq len (ListLength mylist))
+(print len)
+
+_____________________________________________________________ 5
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun ReverseList (somelist &optional (counter (ListLength somelist)) (revlist (list)))
+    (if (= counter 0)
+        (return-from ReverseList revlist)
+        (and
+            (setq revlist (append revlist (list (KEL somelist counter))))
+            (ReverseList somelist (- counter 1) revlist)
+        )
+    )
+)
+
+
+(setq mylist (list 0 3 9 4 41))
+(print mylist)
+(setq mylist (ReverseList mylist))
+(print mylist)
+
+_____________________________________________________________ 6
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ numofel 1))
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun IsPalindrom (somelist &optional (len (ListLength somelist)) (checknums 1))
+    (if (eq (KEL somelist checknums) (KEL somelist (+ (- len checknums) 1)))
+        (if (>= (+ (mod 2 checknums) 1) (/ len 2))
+            (return-from IsPalindrom 1)
+            (IsPalindrom somelist len (+ checknums 1))
+        )
+        (return-from IsPalindrom 0)
+    )
+)
+(setq mylist (list 1 2 2 5 5 1 5 5 2 2 1))
+(print (isPalindrom mylist))
+
+_____________________________________________________________ 7
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ numofel 1))
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun MakeFlatList (somelist &optional (elnum 1) (flist (list)))
+    (if (> elnum (ListLength somelist))
+        (return-from MakeFlatList flist)
+        (and    
+            (setq currentel (KEL somelist elnum))
+            (if (listp currentel)
+                (and
+                    (setq i 1)
+                    (setq len (ListLength currentel))
+                    (loop
+                        (setq flist (append flist (list (KEL currentel i))))
+                        (setq i (+ i 1))
+                        (when (= i (+ len 1)) (return flist))
+                    )
+                    (MakeFlatList somelist (+ elnum 1) flist)
+                )
+                (and
+                    (setq flist (append flist (list currentel)))
+                    (print flist)
+                    (MakeFlatList somelist (+ elnum 1) flist)
+                )
+            )
+        )
+    )
+)
+        
+
+(setq myhardlist (list 1 4 (list 4 6)))
+(print myhardlist)
+(setq myhardlist (MakeFlatList myhardlist))
+(print myhardlist)
+______________________________________________________________ 8
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun LastNC (somelist rest )
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun FirstRepEl (somelist &optional (hm 1))
+    (if (eq (KEL somelist hm) (KEL somelist (+ hm 1)))
+        (FirstRepEl somelist (+ hm 1))
+        (return-from FirstRepEl hm)
+    )
+)
+
+(defun RemoveRep (somelist &optional (wiorep (list)) (index (ListLength somelist)))
+    (if (= index 0)
+	(return-from RemoveRep wiorep)
+	(and
+	    (setq somelist (LastNC somelist index))
+	    (setq wiorep (append wiorep (list (car somelist))))
+	    (RemoveRep somelist wiorep (- index (FirstRepEl somelist)))
+	)
+    )
+)	
+
+(setq mylist '(a a a b b c c c c d))
+(print (RemoveRep mylist))
+
+______________________________________________________________ 9 
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun PlaceIntoSubt (somelist &optional (newlist (list)) (sml (list)) (currel (KEL somelist 1)) (tr 1) (index 1))
+    (if (> index (ListLength somelist))
+        (return-from PlaceIntoSubt newlist)
+        (if (eql currel (KEL somelist (+ index 1)))
+            (PlaceIntoSubt somelist newlist (list ) currel (+ tr 1) (+ index 1))
+            (and
+                (loop
+                    (setq sml (append sml (list currel)))
+                    (setq tr (- tr 1))
+                    (when (< tr 1) (return sml))
+                )
+                (setq newlist (append newlist (list sml)))
+                (PlaceIntoSubt somelist newlist (list ) (KEL somelist (+ index 1)) 1 (+ index 1))
+            )
+        )
+    )
+)
+
+(setq mylist (list 'a 'a 'a 'b 'c 'zz 'zz 'a 'a 'zz))
+(print (PlaceIntoSubt mylist))
+______________________________________________________________ 10&11
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun LastNC (somelist rest)
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun FirstRepEl (somelist &optional (hm 1))
+    (if (eq (KEL somelist hm) (KEL somelist (+ hm 1)))
+        (FirstRepEl somelist (+ hm 1))
+        (return-from FirstRepEl hm)
+    )
+)
+
+(defun NEnc (somelist &optional (enc (list)) (index (ListLength somelist)))
+    (if (= index 0)
+	(return-from NEnc enc)
+	(and
+	    (setq somelist (LastNC somelist index))
+	    (setq enc (append enc (list (append (list (FirstRepEl somelist)) (list (car somelist))))))
+	    (NEnc somelist enc (- index (FirstRepEl somelist)))
+	)
+    )
+)	
+
+(defun ModNEnc (somelist &optional (enc (list)) (index (ListLength somelist)))
+    (if (= index 0)
+        (return-from ModNEnc enc)
+        (and
+            (setq somelist (LastNC somelist index))
+            (if (= (FirstRepEl somelist) 1)
+                (and
+                    (setq enc (append enc (list (car somelist))))
+                    (ModNEnc somelist enc (- index (FirstRepEl somelist)))
+                )
+                (and 
+                    (setq enc (append enc (list (append (list (FirstRepEl somelist)) (list (car somelist))))))
+                    (ModNEnc somelist enc (- index (FirstRepEl somelist)))
+                )
+            )
+        )
+    )
+)	
+
+(setq mylist '(a a a b b c c c c d))
+(print (NEnc mylist))
+(print (ModNEnc mylist))
+
+______________________________________________________________ 12
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun LDecoding (somelist &optional (index 1) (declist (list)))
+    (if (> index (ListLength somelist))
+        (return-from LDecoding newlist)
+        (and
+            (setq hp (KEL somelist index))
+            (if (not (listp hp))
+                (LDecoding somelist (+ index 1) (append declist (list hp)))
+                (and
+                    (setq decpart (list))
+                    (setq repel (KEL hp 2))
+                    (loop for i from 1 to (KEL hp 1)
+                          do (setq decpart (append decpart (list repel)))
+                    )
+                    (LDecoding somelist (+ index 1) (append declist decpart))
+                )
+            )
+        )
+    )
+)
+(setq mylist (list '(3 G) 'B '(5 a)))
+(print mylist)
+(setq mylist (LDecoding mylist))
+(print mylist)
+
+______________________________________________________________ 13 What is the task
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_______________________________________________________________ 14&15
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+    
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun Dupli (somelist &optional (dlist (list)) (index 1))
+    (if (> index (ListLength somelist))
+        (return-from Dupli dlist)
+        (and
+            (setq currel (KEL somelist index))
+            (setq dlist (append dlist (list currel currel)))
+            (Dupli somelist dlist (+ index 1))
+        )
+    )
+)
+
+(defun Repli (somelist hm &optional (rlist (list)) (index 1))
+    (if (> index (ListLength somelist))
+        (return-from Repli rlist)
+        (and
+            (setq currel (KEL somelist index))
+            (setq i 0)
+            (loop 
+                (setq rlist (append rlist (list currel)))
+                (setq i (+ i 1))
+                (when (= i hm) (return rlist))
+            )
+            (Repli somelist hm rlist (+ index 1))
+        )
+    )
+)
+
+(setq mylist (list 1 4 5 'a))
+(print (Dupli mylist))
+(print (Repli mylist 5))
+
+_______________________________________________________________ 16
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ numofel 1))
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun DropEls (somelist index &optional (newlist (list))(counter 1) (len (ListLength somelist)))
+    (if (> counter len)
+        (return-from DropEls newlist)
+        (if (= (mod counter index) 0)
+            (DropEls somelist index newlist (+ counter 1) len)
+            (and
+                (setq newlist (append newlist (list (KEL somelist counter))))
+                (DropEls somelist index newlist (+ counter 1) len)
+            )
+        )
+    )
+)
+
+(setq mylist (list 1 4 5 6 1 'a 'c 4 9 -1))
+(print (DropEls mylist 4))
+
+______________________________________________________________ 17 
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun LastNC (somelist rest)
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun FirstNC (somelist amount &optional (newlist (list))(index 1))
+    (if (> index amount)
+        (return-from FirstNC newlist)
+        (and
+            (setq newlist (append newlist (list (KEL somelist index))))
+            (FirstNC somelist amount newlist (+ index 1))
+        )
+    )
+)
+
+(defun Split (somelist fpl &optional (newlist (list)))
+    (setq newlist (append newlist (list (FirstNC somelist fpl)) (list (LastNC somelist (- (ListLength somelist) fpl)))))
+    (return-from Split newlist)
+)
+
+______________________________________________________________ 18
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ numofel 1))
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun Slice (somelist mil mal &optional (newlist (list)) (index 1))
+    (if (> index mal)
+        (return-from Slice newlist)
+        (and
+            (if (>= index mil)
+                (and
+                    (setq newlist (append newlist (list (KEL somelist index))))
+                    (Slice somelist mil mal newlist (+ index 1))
+                )
+                (Slice somelist mil mal newlist (+ index 1))
+            )
+        )
+    )
+)
+
+(setq mylist (list 1 2 3 4 5 6 7 8 9))
+(print mylist)
+(print (Slice mylist 4 7))
+
+______________________________________________________________ 19 
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun LastNC (somelist rest)
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun FirstNC (somelist amount &optional (newlist (list))(index 1))
+    (if (> index amount)
+        (return-from FirstNC newlist)
+        (and
+            (setq newlist (append newlist (list (KEL somelist index))))
+            (FirstNC somelist amount newlist (+ index 1))
+        )
+    )
+)
+
+(defun RotateOn (somelist rn &optional (newlist (list)))
+    (setq newlist (append newlist (LastNC somelist (- (ListLength somelist) rn)) (FirstNC somelist rn)))
+    (return-from RotateOn newlist)
+)
+
+(setq mylist (list 1 2 3 4 5 6 7 8))
+(print mylist)
+(print (RotateOn mylist 3))
+
+______________________________________________________________ 20 
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun LastNC (somelist rest)
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun FirstNC (somelist amount &optional (newlist (list))(index 1))
+    (if (> index amount)
+        (return-from FirstNC newlist)
+        (and
+            (setq newlist (append newlist (list (KEL somelist index))))
+            (FirstNC somelist amount newlist (+ index 1))
+        )
+    )
+)
+
+(defun RemoveNEl (somelist pos &optional (newlist (list)))
+    (setq newlist (append newlist (FirstNC somelist (- pos 1)) (LastNC somelist pos)))
+    (return-from RemoveNEl newlist)
+)
+                          
+(setq mylist (list 1 2 3 4 5 6 7 8))
+(print mylist)
+(print (RemoveNEl mylist 4))
+
+______________________________________________________________ 21
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun LastNC (somelist rest)
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun FirstNC (somelist amount &optional (newlist (list))(index 1))
+    (if (> index amount)
+        (return-from FirstNC newlist)
+        (and
+            (setq newlist (append newlist (list (KEL somelist index))))
+            (FirstNC somelist amount newlist (+ index 1))
+        )
+    )
+)
+
+(defun InsertIn (somelist elem pos)
+    (setq somelist (append (FirstNC somelist (- pos 1)) (list elem) (LastNC somelist (- (+ (ListLength somelist) 1) pos))))
+    (return-from InsertIn somelist)
+)
+
+(setq mylist (list 1 2 3 4 5 6 7))
+(print mylist)
+(print (InsertIn mylist 'alfa 1))
+
+_______________________________________________________________ 22
+
+(defun InRange (min max &optional (newlist (list)))
+    (if (> min max)
+        (return-from InRange newlist)
+        (and
+            (setq newlist (append newlist (list min)))
+            (InRange (+ min 1) max newlist)
+        )
+    )
+)
+
+(setq mylist (InRange 1 9))
+(print mylist)
+
+_______________________________________________________________ 23 Not Correct;
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+    
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun LastNC (somelist rest)
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun FirstNC (somelist amount &optional (newlist (list))(index 1))
+    (if (> index amount)
+        (return-from FirstNC newlist)
+        (and
+            (setq newlist (append newlist (list (KEL somelist index))))
+            (FirstNC somelist amount newlist (+ index 1))
+        )
+    )
+)
+
+(defun RemoveNEl (somelist pos &optional (newlist (list)))
+    (setq newlist (append newlist (FirstNC somelist (- pos 1)) (LastNC somelist (- (ListLength somelist) pos))))
+    (return-from RemoveNEl newlist)
+)
+
+(defun RandomExtract (somelist times &optional (newlist (list)) (rndst (make-random-state)) (len (ListLength somelist)))
+    (if (= times 0)
+        (return-from RandomExtract newlist)
+        (and
+            (setq rndst (make-random-state t))
+            (setq rnum (+ (random len rndst) 1))
+            (setq newlist (append newlist (list (KEL somelist rnum))))
+            (setq somelist (RemoveNEl somelist rnum))
+            (RandomExtract somelist (- times 1) newlist rndst)
+        )
+    )
+)
+
+(setq mylist (list 1 2 'a 'b 'zz))
+(print (RandomExtract mylist 4))
+
+______________________________________________________________ 24
+
+(defun CreateRList (nums upl &optional crlist (rndst (make-random-state)))
+    (if (= nums 0)
+        (return-from CreateRList crlist)
+        (and
+            (setq rndst (make-random-state t))
+            (setq rnum (+ (random upl rndst) 1))
+            (setq crlist (append crlist (list rnum)))
+            (CreateRList (- nums 1) upl crlist rndst)
+        )
+    )
+)
+
+(setq mylist (CreateRList 9 49))
+(print mylist)
+
+______________________________________________________________ 25 - Result is NIL
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+    
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun LastNC (somelist rest)
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun FirstNC (somelist amount &optional (newlist (list))(index 1))
+    (if (> index amount)
+        (return-from FirstNC newlist)
+        (and
+            (setq newlist (append newlist (list (KEL somelist index))))
+            (FirstNC somelist amount newlist (+ index 1))
+        )
+    )
+)
+
+(defun RemoveNEl (somelist pos &optional (newlist (list)))
+    (setq newlist (append newlist (FirstNC somelist (- pos 1)) (LastNC somelist (- (ListLength somelist) pos))))
+    (return-from RemoveNEl newlist)
+)
+
+(defun RandomExtract (somelist times &optional (newlist (list)) (rndst (make-random-state)) (len (ListLength somelist)))
+    (if (= times 0)
+        (return-from RandomExtract newlist)
+        (and
+            (setq rndst (make-random-state t))
+            (setq rnum (+ (random len rndst) 1))
+            (setq newlist (append newlist (list (KEL somelist rnum))))
+            (setq somelist (RemoveNEl somelist rnum))
+            (RandomExtract somelist (- times 1) newlist rndst)
+        )
+    )
+)
+
+(setq mylist (list 1 2 'a 'b 'zz))
+(print (RandomExtract mylist 5))
+
+________________________________________________________________ 26 Not Correct - Result is a number of possible combinations
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun Factorial (num)
+    (if (<= num 1)
+        (return-from Factorial 1)
+        (return-from Factorial (* num (Factorial (- num 1))))
+    )
+)
+
+(defun CombAmount (somelist loc)
+    (setq len (ListLength somelist))
+    (setq comb (/ (Factorial len) (* (Factorial loc) (Factorial (-  len loc)))))
+    (return-from CombAmount comb)
+)
+
+(setq mylist (list 'a 'b 'c 'd 'e 'f))
+(print (CombAmount mylist 2))
+
+________________________________________________________________ 27
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+______________________________________________________________ 28 Result is NIL
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun LastNC (somelist rest)
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun FirstNC (somelist amount &optional (newlist (list))(index 1))
+    (if (> index amount)
+        (return-from FirstNC newlist)
+        (and
+            (setq newlist (append newlist (list (KEL somelist index))))
+            (FirstNC somelist amount newlist (+ index 1))
+        )
+    )
+)
+
+(defun RemoveNEl (somelist pos &optional (newlist (list)))
+    (setq newlist (append newlist (FirstNC somelist (- pos 1)) (LastNC somelist (- (ListLength somelist) pos))))
+    (return-from RemoveNEl newlist)
+)
+
+(defun InsertIn (somelist elem pos)
+    (setq somelist (append (FirstNC somelist (- pos 1)) (list elem) (LastNC somelist (- (+ (ListLength somelist) 1) pos))))
+    (return-from InsertIn somelist)
+)
+
+(defun LLTransform (somelist &optional (newlist (list)) (index 1))
+    (if (> index (ListLength somelist))
+        (return-from LLTransform newlist)
+        (and
+            (setq newlist (append newlist (list (ListLength (KEL somelist index)))))
+            (LLTransform somelist newlist (+ index 1))
+        )
+    )
+)
+
+(defun LSort (somelist &optional (trlist (LLTransform somelist)) (index 1) (hpv 1))
+    (if (> index (ListLength somelist))
+        (return-from LSort somelist)
+        (and
+            (if (= hpv (ListLength somelist))
+                (and
+                    (setq hpv 1)
+                    (setq index (+ index 1))
+                )
+                (void)
+            )
+            (if (> (KEL trlist hpv) (KEL trlist (+ hpv 1)))
+                (and
+                    (setq somelist (InsertIn somelist (KEL somelist hpv) (+ hpv 2)))
+                    (setq somelist (RemoveNEl somelist hpv))
+                )
+                (void)
+            )
+            (LSort somelist (LLTransform somelist) index (+ hpv 1))
+        )
+    )
+)
+
+(defun LFTransform (somelist &optional (trlist (list )) (tempvar (ListLength (KEL somelist index))) (index 1) (hpv 1) (counter 1))
+    (if (> index (ListLength somelist))
+        (return-from LFTransform trlist)
+        (and
+            (if (= hpv (ListLength somelist))
+                (and
+                    (setq hpv 1)
+                    (setq index (+ index 1))
+                    ;(setq templist (list ))
+                )
+            )
+            
+        )
+    )
+)
+
+(setq mylist (list (list 'a 'b) (list 'c) (list 'd 'e 'f)))
+(print (LSort mylist))
+
+______________________________________________________________ 31
+
+(defun IsPrime (num &optional (index 2))
+    (if (>= index num)
+        (return-from IsPrime 1)
+        (if (= (rem num index) 0)
+            (return-from IsPrime 0)
+            (IsPrime num (+ index 1))
+        )
+    )
+)
+(setq num 7)
+(print (IsPrime num))
+____________________________________________________________________ 32&33
+
+(defun GCD (x y)
+    (if (= (rem x y) 0)
+        (return-from GCD y)
+        (GCD y (rem x y))
+    )
+)
+(defun IsCoprime (x y)
+    (if (= (GCD x y) 1)
+        (return-from IsCoprime 1)
+        (return-from IsCoprime 0)
+    )
+)
+(setq num1 21)
+(setq num2 14)
+(print (IsCoprime num1 num2))
+____________________________________________________________________ 34
+
+(defun GCD (x y)
+    (if (= (rem x y) 0)
+        (return-from GCD y)
+        (GCD y (rem x y))
+    )
+)
+(defun IsCoprime (x y)
+    (if (= (GCD x y) 1)
+        (return-from IsCoprime 1)
+        (return-from IsCoprime 0)
+    )
+)
+
+(defun Phi (num &optional (thephi 1) (currnum 2))
+    (if (= num currnum)
+        (return-from Phi thephi)
+        (if (= (IsCoprime num currnum) 1)
+            (Phi num (+ thephi 1) (+ currnum 1))
+            (Phi num thephi (+ currnum 1))
+        )
+    )
+)
+(setq somenum 11)
+(print (Phi somenum))
+____________________________________________________________________ 35
+
+(defun PrimeFlist (num &optional (fact 2) (crlist (list 1)))
+    (if (= num 1)
+        (return-from PrimeFlist crlist)
+        (if (= (rem num fact) 0)
+            (PrimeFlist (/ num fact) fact (append crlist (list fact)))
+            (PrimeFlist num (+ fact 1) crlist)
+        )
+    )
+)
+(setq num 315)
+(setq prfactlist (PrimeFlist num))
+(print prfactlist)
+____________________________________________________________________ 36
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun LastNC (somelist &optional (rest 0))
+    (if (= (ListLength somelist) rest)
+        (return-from LastNC somelist)
+        (LastNC (cdr somelist) rest)
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun FirstRepEl (somelist &optional (hm 1))
+    (if (eq (KEL somelist hm) (KEL somelist (+ hm 1)))
+        (FirstRepEl somelist (+ hm 1))
+        (return-from FirstRepEl hm)
+    )
+)
+
+(defun NEnc (somelist &optional (enc (list)) (index (ListLength somelist)))
+    (if (= index 0)
+	(return-from NEnc enc)
+	(and
+	    (setq somelist (LastNC somelist index))
+	    (setq enc (append enc (list (append (list (car somelist)) (list (FirstRepEl somelist))))))
+	    (NEnc somelist enc (- index (FirstRepEl somelist)))
+	)
+    )
+)
+
+(defun PrimeFlist (num &optional (fact 2) (crlist (list 1)))
+    (if (= num 1)
+        (return-from PrimeFlist crlist)
+        (if (= (rem num fact) 0)
+            (PrimeFlist (/ num fact) fact (append crlist (list fact)))
+            (PrimeFlist num (+ fact 1) crlist)
+        )
+    )
+)
+(setq num 315)
+(setq prfactlist (PrimeFlist num))
+(print prfactlist)
+
+____________________________________________________________________ 37 Wrong Algorithm
+
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
+(defun ModPhi (somelist &optional (index 1) (thephi 0))
+    (if (> index (ListLength somelist))
+        (return-from ModPhi thephi)
+        (and
+            (setq currpair (KEL somelist index))
+            (setq thephi (+ thephi (* (- (KEL currpair 1) 1) (expt (KEL currpair 1) (- (KEL currpair 2) 1)))))
+            (ModPhi somelist (+ index 1) thephi)
+        )
+    )
+)
+____________________________________________________________________ 38 Wrong Algorithm In Task 37
+
+
+
+
+
+
+
+
+
+
+____________________________________________________________________ 39
+
+(defun IsPrime (num &optional (index 2))
+    (if (>= index num)
+        (return-from IsPrime 1)
+        (if (= (rem num index) 0)
+            (return-from IsPrime 0)
+            (IsPrime num (+ index 1))
+        )
+    )
+)
+(defun AllPrimesIn (min max &optional (crlist (list)))
+    (if (> min max)
+        (return-from AllPrimesIn crlist)
+        (if (= (IsPrime min) 1)
+            (AllPrimesIn (+ min 1) max (append crlist (list min)))
+            (AllPrimesIn (+ min 1) max crlist)
+        )
+    )
+)  
+(setq min 3)
+(setq max 17)
+(print (AllPrimesIn min max))
+_____________________________________________________________________ 40&41
+
+(defun IsPrime (num &optional (index 2))
+    (if (>= index num)
+        (return-from IsPrime 1)
+        (if (= (rem num index) 0)
+            (return-from IsPrime 0)
+            (IsPrime num (+ index 1))
+        )
+    )
+)
+
+(defun LargestPrime (num &optional (index 1) (max 1))
+    (if (> index num)
+        (return-from LargestPrime max)
+        (and
+            (if (= (IsPrime index) 1)
+                (LargestPrime num (+ index 1) index)
+                (LargestPrime num (+ index 1) max)
+            )
+        )
+    )
+)
+
+(defun GoldFunc (num)
+    (if (= (rem num 2) 0)
+        (and
+            (setq lprime (LargestPrime num))
+            (setq goldlist (list (- num lprime) lprime))
+            (return-from GoldFunc goldlist)
+        )
+        (return-from GoldFunc (list ))
+    )
+)
+
+(defun GoldList (min max &optional (limit 0))
+    (if (> min max)
+        (print "end")
+        (and
+            (if (= (IsPrime min) 1)
+                (and
+                    (setq lprime (LargestPrime min))
+                    (if (> lprime limit)
+                        (format t "~D = ~D + ~D~%" min (- min lprime) lprime)
+                    )
+                )
+            )
+            (GoldList (+ min 1) max)
+        )
+    )
+)
+
+(print (GoldFunc 28))
+(GoldList 1 20)
+
+__________________________________________________________________ 46
+
+(defun andf (A B)
+    (if (= A 0)
+        (return-from andf 0)
+        (if (= B 0)
+            (return-from andf 0)
+            (return-from andf 1)
+        )
+    )
+)
+
+(defun orf (A B)
+    (if (= A 0)
+        (if (= B 0)
+            (return-from orf 0)
+            (return-from orf 1)
+        )
+        (return-from orf 1)
+    )
+)
+
+(defun nandf (A B)
+    (if (= (andf A B) 0)
+        (return-from nandf 1)
+        (return-from nandf 0)
+    )
+)
+
+(defun norf (A B)
+    (if (= (orf A B) 0)
+        (return-from norf 1)
+        (return-from norf 0)
+    )
+)
+
+(defun xorf (A B)
+    (if (= A 0)
+        (if (= B 0)
+            (return-from xorf 0)
+            (return-from xorf 1)
+        )
+        (if (= B 0)
+            (return-from xorf 1)
+            (return-from xorf 0)
+        )
+    )
+)
+
+(defun implf (A B)
+    (if (= B 0)
+        (if (= A 0)
+            (return-from implf 1)
+            (return-from implf 0)
+        )
+        (return-from implf 1)
+    )
+)
+
+(defun equf (A B)
+    (if (= A 0)
+        (if (= B 0)
+            (return-from equf 1)
+            (return-from equf 0)
+        )
+        (if (= B 0)
+            (return-from equf 0)
+            (return-from equf 1)
+        )
+    )
+)
+
+__________________________________________________________________ 49 Not Correct - In result elements are not lists
+
+(defun Pow (num power &optional (hn num))
+    (if (= power 0)
+        (return-from Pow 1)
+        (if (> power 1)
+            (Pow (* num hn) (- power 1) hn)
+            (if (= power 1)
+                (return-from Pow num)
+                (if (= power -1)
+                    (return-from Pow (/ 1 num))
+                    (Pow (* num hn) (+ power 1) hn)
+                )
+            )
+        )
+    )
+)
+
+(defun Transform (num &optional (trn 0) (index 0))            
+    (if (< num 1)
+        (return-from Transform trn)
+        (and
+            (setq trn (+ trn (* (rem num 2) (Pow 10 index))))
+            (Transform (floor num 2) trn (+ index 1))
+        )
+    )
+)
+    
+(defun GrayFunc (num &optional (index 0)(bit (Pow 2 num))(crlist (list)))
+    (if (> index num)
+        (return-from GrayFunc crlist)
+        (and
+            (setq crlist (append crlist (list (Transform index))))
+            (GrayFunc num (+ index 1) bit crlist)
+        )
+    )
+)
+
+(setq mylist (list))
+(setq mynum 100)
+(setq mylist (GrayFunc mynum))
+(print mylist)
