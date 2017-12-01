@@ -904,7 +904,7 @@ ______________________________________________________________ 28 Second part is
     )
 )
 
-(defun LFTransform (somelist &optional (newlist (list )) (compv (ListLength (KEL somelist 1)))(index 1) (hpv 1) (counter 0) (itt (ListLength somelist)))
+(defun LFTransform (somelist &optional (newlist (list )) (compv (ListLength (KEL somelist 1))) (index 1) (hpv 1) (counter 0) (itt (ListLength somelist)))
     (if (>= index itt)
         (return-from LFTransform newlist)
         (and
@@ -921,17 +921,21 @@ ______________________________________________________________ 28 Second part is
             (if (= (ListLength (KEL somelist hpv)) compv)
                 (and
                     (setq counter (+ counter 1))
-                    (setq somelist (RemoveNEl somelist hpv))
+                    (if (= (ListLength somelist) 1) ;This is weird, but it works only when this is checked.
+                        (princ "")
+                        (setq somelist (RemoveNEl somelist hpv))
+                    )
                 )
                 (princ "")
             )
+            (print somelist)
             (LFTransform somelist newlist compv index (+ hpv 1) counter itt)
         )
     )
 )
 
-(setq mylist (list (list 1 2 3) (list 4 5) (list 6) (list 0 0 0 0)))
-(print (LLTransform mylist))
+(setq mylist (list (list 'a 'b) (list 'c 'd 'e) (list 'z 'z) (list 'p) (list 'a 'v 'd 'g)))
+(print (LFTransform mylist))
 (print (LSort mylist))
 ______________________________________________________________ 31
 
