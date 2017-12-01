@@ -69,7 +69,7 @@ _____________________________________________________________ 5
 (defun ReverseList (somelist &optional (counter (ListLength somelist)) (revlist (list)))
     (if (= counter 0)
         (return-from ReverseList revlist)
-        (and
+        (progn
             (setq revlist (append revlist (list (KEL somelist counter))))
             (ReverseList somelist (- counter 1) revlist)
         )
@@ -129,10 +129,10 @@ _____________________________________________________________ 7
 (defun MakeFlatList (somelist &optional (elnum 1) (flist (list)))
     (if (> elnum (ListLength somelist))
         (return-from MakeFlatList flist)
-        (and    
+        (progn    
             (setq currentel (KEL somelist elnum))
             (if (listp currentel)
-                (and
+                (progn
                     (setq i 1)
                     (setq len (ListLength currentel))
                     (loop
@@ -142,7 +142,7 @@ _____________________________________________________________ 7
                     )
                     (MakeFlatList somelist (+ elnum 1) flist)
                 )
-                (and
+                (progn
                     (setq flist (append flist (list currentel)))
                     (print flist)
                     (MakeFlatList somelist (+ elnum 1) flist)
@@ -190,7 +190,7 @@ ______________________________________________________________ 8
 (defun RemoveRep (somelist &optional (wiorep (list)) (index (ListLength somelist)))
     (if (= index 0)
 	(return-from RemoveRep wiorep)
-	(and
+	(progn
 	    (setq somelist (LastNC somelist index))
 	    (setq wiorep (append wiorep (list (car somelist))))
 	    (RemoveRep somelist wiorep (- index (FirstRepEl somelist)))
@@ -222,7 +222,7 @@ ______________________________________________________________ 9
         (return-from PlaceIntoSubt newlist)
         (if (eql currel (KEL somelist (+ index 1)))
             (PlaceIntoSubt somelist newlist (list ) currel (+ tr 1) (+ index 1))
-            (and
+            (progn
                 (loop
                     (setq sml (append sml (list currel)))
                     (setq tr (- tr 1))
@@ -270,7 +270,7 @@ ______________________________________________________________ 10&11
 (defun NEnc (somelist &optional (enc (list)) (index (ListLength somelist)))
     (if (= index 0)
 	(return-from NEnc enc)
-	(and
+	(progn
 	    (setq somelist (LastNC somelist index))
 	    (setq enc (append enc (list (append (list (FirstRepEl somelist)) (list (car somelist))))))
 	    (NEnc somelist enc (- index (FirstRepEl somelist)))
@@ -281,14 +281,14 @@ ______________________________________________________________ 10&11
 (defun ModNEnc (somelist &optional (enc (list)) (index (ListLength somelist)))
     (if (= index 0)
         (return-from ModNEnc enc)
-        (and
+        (progn
             (setq somelist (LastNC somelist index))
             (if (= (FirstRepEl somelist) 1)
-                (and
+                (progn
                     (setq enc (append enc (list (car somelist))))
                     (ModNEnc somelist enc (- index (FirstRepEl somelist)))
                 )
-                (and 
+                (progn 
                     (setq enc (append enc (list (append (list (FirstRepEl somelist)) (list (car somelist))))))
                     (ModNEnc somelist enc (- index (FirstRepEl somelist)))
                 )
@@ -320,11 +320,11 @@ ______________________________________________________________ 12
 (defun LDecoding (somelist &optional (index 1) (declist (list)))
     (if (> index (ListLength somelist))
         (return-from LDecoding newlist)
-        (and
+        (progn
             (setq hp (KEL somelist index))
             (if (not (listp hp))
                 (LDecoding somelist (+ index 1) (append declist (list hp)))
-                (and
+                (progn
                     (setq decpart (list))
                     (setq repel (KEL hp 2))
                     (loop for i from 1 to (KEL hp 1)
@@ -381,7 +381,7 @@ _______________________________________________________________ 14&15
 (defun Dupli (somelist &optional (dlist (list)) (index 1))
     (if (> index (ListLength somelist))
         (return-from Dupli dlist)
-        (and
+        (progn
             (setq currel (KEL somelist index))
             (setq dlist (append dlist (list currel currel)))
             (Dupli somelist dlist (+ index 1))
@@ -392,7 +392,7 @@ _______________________________________________________________ 14&15
 (defun Repli (somelist hm &optional (rlist (list)) (index 1))
     (if (> index (ListLength somelist))
         (return-from Repli rlist)
-        (and
+        (progn
             (setq currel (KEL somelist index))
             (setq i 0)
             (loop 
@@ -430,7 +430,7 @@ _______________________________________________________________ 16
         (return-from DropEls newlist)
         (if (= (mod counter index) 0)
             (DropEls somelist index newlist (+ counter 1) len)
-            (and
+            (progn
                 (setq newlist (append newlist (list (KEL somelist counter))))
                 (DropEls somelist index newlist (+ counter 1) len)
             )
@@ -467,7 +467,7 @@ ______________________________________________________________ 17
 (defun FirstNC (somelist amount &optional (newlist (list))(index 1))
     (if (> index amount)
         (return-from FirstNC newlist)
-        (and
+        (progn
             (setq newlist (append newlist (list (KEL somelist index))))
             (FirstNC somelist amount newlist (+ index 1))
         )
@@ -498,9 +498,9 @@ ______________________________________________________________ 18
 (defun Slice (somelist mil mal &optional (newlist (list)) (index 1))
     (if (> index mal)
         (return-from Slice newlist)
-        (and
+        (progn
             (if (>= index mil)
-                (and
+                (progn
                     (setq newlist (append newlist (list (KEL somelist index))))
                     (Slice somelist mil mal newlist (+ index 1))
                 )
@@ -540,7 +540,7 @@ ______________________________________________________________ 19
 (defun FirstNC (somelist amount &optional (newlist (list))(index 1))
     (if (> index amount)
         (return-from FirstNC newlist)
-        (and
+        (progn
             (setq newlist (append newlist (list (KEL somelist index))))
             (FirstNC somelist amount newlist (+ index 1))
         )
@@ -582,7 +582,7 @@ ______________________________________________________________ 20
 (defun FirstNC (somelist amount &optional (newlist (list))(index 1))
     (if (> index amount)
         (return-from FirstNC newlist)
-        (and
+        (progn
             (setq newlist (append newlist (list (KEL somelist index))))
             (FirstNC somelist amount newlist (+ index 1))
         )
@@ -624,7 +624,7 @@ ______________________________________________________________ 21
 (defun FirstNC (somelist amount &optional (newlist (list))(index 1))
     (if (> index amount)
         (return-from FirstNC newlist)
-        (and
+        (progn
             (setq newlist (append newlist (list (KEL somelist index))))
             (FirstNC somelist amount newlist (+ index 1))
         )
@@ -645,7 +645,7 @@ _______________________________________________________________ 22
 (defun InRange (min max &optional (newlist (list)))
     (if (> min max)
         (return-from InRange newlist)
-        (and
+        (progn
             (setq newlist (append newlist (list min)))
             (InRange (+ min 1) max newlist)
         )
@@ -681,7 +681,7 @@ _______________________________________________________________ 23 Change "and" 
 (defun FirstNC (somelist amount &optional (newlist (list))(index 1))
     (if (> index amount)
         (return-from FirstNC newlist)
-        (and
+        (progn
             (setq newlist (append newlist (list (KEL somelist index))))
             (FirstNC somelist amount newlist (+ index 1))
         )
@@ -696,7 +696,7 @@ _______________________________________________________________ 23 Change "and" 
 (defun RandomExtract (somelist times &optional (newlist (list)) (rndst (make-random-state)) (len (ListLength somelist)))
     (if (= times 0)
         (return-from RandomExtract newlist)
-        (and
+        (progn
             (setq rndst (make-random-state t))
             (setq rnum (+ (random len rndst) 1))
             (setq newlist (append newlist (list (KEL somelist rnum))))
@@ -714,7 +714,7 @@ ______________________________________________________________ 24
 (defun CreateRList (nums upl &optional crlist (rndst (make-random-state)))
     (if (= nums 0)
         (return-from CreateRList crlist)
-        (and
+        (progn
             (setq rndst (make-random-state t))
             (setq rnum (+ (random upl rndst) 1))
             (setq crlist (append crlist (list rnum)))
@@ -752,7 +752,7 @@ ______________________________________________________________ 25
 (defun FirstNC (somelist amount &optional (newlist (list))(index 1))
     (if (> index amount)
         (return-from FirstNC newlist)
-        (and
+        (progn
             (setq newlist (append newlist (list (KEL somelist index))))
             (FirstNC somelist amount newlist (+ index 1))
         )
@@ -854,7 +854,7 @@ ______________________________________________________________ 28 Second part is
 (defun FirstNC (somelist amount &optional (newlist (list))(index 1))
     (if (> index amount)
         (return-from FirstNC newlist)
-        (and
+        (progn
             (setq newlist (append newlist (list (KEL somelist index))))
             (FirstNC somelist amount newlist (+ index 1))
         )
@@ -874,7 +874,7 @@ ______________________________________________________________ 28 Second part is
 (defun LLTransform (somelist &optional (newlist (list)) (index 1))
     (if (> index (ListLength somelist))
         (return-from LLTransform newlist)
-        (and
+        (progn
             (setq newlist (append newlist (list (ListLength (KEL somelist index)))))
             (LLTransform somelist newlist (+ index 1))
         )
@@ -884,16 +884,16 @@ ______________________________________________________________ 28 Second part is
 (defun LSort (somelist &optional (trlist (LLTransform somelist)) (index 1) (hpv 1))
     (if (> index (ListLength somelist))
         (return-from LSort somelist)
-        (and
+        (progn
             (if (= hpv (ListLength somelist))
-                (and
+                (progn
                     (setq hpv 1)
                     (setq index (+ index 1))
                 )
                 (princ "")
             )
             (if (> (KEL trlist hpv) (KEL trlist (+ hpv 1)))
-                (and
+                (progn
                     (setq somelist (InsertIn somelist (KEL somelist hpv) (+ hpv 2)))
                     (setq somelist (RemoveNEl somelist hpv))
                 )
@@ -907,9 +907,9 @@ ______________________________________________________________ 28 Second part is
 (defun LFTransform (somelist &optional (newlist (list )) (compv (ListLength (KEL somelist 1))) (index 1) (hpv 1) (counter 0) (itt (ListLength somelist)))
     (if (>= index itt)
         (return-from LFTransform newlist)
-        (and
+        (progn
             (if (>= hpv (ListLength somelist))
-                (and
+                (progn
                     (setq hpv 1)
                     (setq index (+ index 1))
                     (setq newlist (append newlist (list (list counter compv))))
@@ -919,7 +919,7 @@ ______________________________________________________________ 28 Second part is
                 (princ "")
             )
             (if (= (ListLength (KEL somelist hpv)) compv)
-                (and
+                (progn
                     (setq counter (+ counter 1))
                     (if (= (ListLength somelist) 1) ;This is weird, but it works only when this is checked.
                         (princ "")
@@ -1040,7 +1040,7 @@ ____________________________________________________________________ 36
 (defun NEnc (somelist &optional (enc (list)) (index (ListLength somelist)))
     (if (= index 0)
 	(return-from NEnc enc)
-	(and
+	(progn
 	    (setq somelist (LastNC somelist index))
 	    (setq enc (append enc (list (append (list (car somelist)) (list (FirstRepEl somelist))))))
 	    (NEnc somelist enc (- index (FirstRepEl somelist)))
@@ -1123,6 +1123,20 @@ ____________________________________________________________________ 39
 (print (AllPrimesIn min max))
 _____________________________________________________________________ 40&41
 
+(defun ListLength (somelist &optional (numofel 0))
+    (if (null somelist)
+        (return-from ListLength numofel)
+        (ListLength (cdr somelist) (+ 1 numofel)) 
+    )
+)
+
+(defun KEL (somelist itsnum &optional (len (ListLength somelist)) (condnum (ListLength somelist)))
+    (if (= (+ (- condnum itsnum) 1) len)
+        (return-from KEL (car somelist))
+        (KEL (cdr somelist) itsnum (- len 1) condnum)
+    )
+)
+
 (defun IsPrime (num &optional (index 2))
     (if (>= index num)
         (return-from IsPrime 1)
@@ -1136,7 +1150,7 @@ _____________________________________________________________________ 40&41
 (defun LargestPrime (num &optional (index 1) (max 1))
     (if (> index num)
         (return-from LargestPrime max)
-        (and
+        (progn
             (if (= (IsPrime index) 1)
                 (LargestPrime num (+ index 1) index)
                 (LargestPrime num (+ index 1) max)
@@ -1147,7 +1161,7 @@ _____________________________________________________________________ 40&41
 
 (defun GoldFunc (num)
     (if (= (rem num 2) 0)
-        (and
+        (progn
             (setq lprime (LargestPrime num))
             (setq goldlist (list (- num lprime) lprime))
             (return-from GoldFunc goldlist)
@@ -1158,23 +1172,26 @@ _____________________________________________________________________ 40&41
 
 (defun GoldList (min max &optional (limit 0))
     (if (> min max)
-        (print "end")
-        (and
-            (if (= (IsPrime min) 1)
-                (and
-                    (setq lprime (LargestPrime min))
-                    (if (> lprime limit)
-                        (format t "~D = ~D + ~D~%" min (- min lprime) lprime)
+        (princ "end")
+        (progn
+            (if (= (rem min 2) 0)
+                (progn
+                    (setq lp (KEL (GoldFunc min) 1))
+                    (setq hp (KEL (GoldFunc min) 2))
+                    (if (> lp limit)
+                        (format t "~D = ~D + ~D~%" min lp hp)
+                        (princ "")
                     )
                 )
+                (princ "")
             )
-            (GoldList (+ min 1) max)
+            (GoldList (+ min 1) max limit)
         )
     )
 )
 
-(print (GoldFunc 28))
-(GoldList 1 20)
+;(print (GoldFunc 28))
+(GoldList 7 20)
 
 __________________________________________________________________ 46
 
@@ -1269,7 +1286,7 @@ __________________________________________________________________ 49 Not Correc
 (defun Transform (num &optional (trn 0) (index 0))            
     (if (< num 1)
         (return-from Transform trn)
-        (and
+        (progn
             (setq trn (+ trn (* (rem num 2) (Pow 10 index))))
             (Transform (floor num 2) trn (+ index 1))
         )
@@ -1279,7 +1296,7 @@ __________________________________________________________________ 49 Not Correc
 (defun GrayFunc (num &optional (index 0)(bit (Pow 2 num))(crlist (list)))
     (if (> index num)
         (return-from GrayFunc crlist)
-        (and
+        (progn
             (setq crlist (append crlist (list (Transform index))))
             (GrayFunc num (+ index 1) bit crlist)
         )
