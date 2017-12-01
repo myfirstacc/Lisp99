@@ -764,21 +764,21 @@ ______________________________________________________________ 25
     (return-from RemoveNEl newlist)
 )
 
-(defun RandomExtract (somelist times &optional (newlist (list)) (rndst (make-random-state)) (len (ListLength somelist)))
+(defun RandomPerm (somelist &optional (times (ListLength somelist)) (newlist (list)) (rndst (make-random-state)))
     (if (= times 0)
-        (return-from RandomExtract newlist)
+        (return-from RandomPerm newlist)
         (progn
             (setq rndst (make-random-state t))
-            (setq rnum (+ (random len rndst) 1))
+            (setq rnum (+ (random (ListLength somelist) rndst) 1))
             (setq newlist (append newlist (list (KEL somelist rnum))))
             (setq somelist (RemoveNEl somelist rnum))
-            (RandomExtract somelist (- times 1) newlist rndst)
+            (RandomPerm somelist (- times 1) newlist rndst)
         )
     )
 )
 
 (setq mylist (list 1 2 'a 'b 'zz))
-(print (RandomExtract mylist 5))
+(print (RandomPerm mylist 5))
 
 ________________________________________________________________ 26 Not Correct - Result is a number of possible combinations
 
