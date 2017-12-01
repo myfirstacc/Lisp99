@@ -341,7 +341,7 @@ ______________________________________________________________ 12
 (setq mylist (LDecoding mylist))
 (print mylist)
 
-______________________________________________________________ 13 What is the task
+______________________________________________________________ 13 What is the task (probably solution of task 9 is correct)
 
 
 
@@ -655,7 +655,7 @@ _______________________________________________________________ 22
 (setq mylist (InRange 1 9))
 (print mylist)
 
-_______________________________________________________________ 23 Not Correct;
+_______________________________________________________________ 23 Change "and" on "progn" for RandomPerm (task 25)
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -828,7 +828,7 @@ ________________________________________________________________ 27
 
 
 
-______________________________________________________________ 28 Result is NIL / Not Finished
+______________________________________________________________ 28 Second part is not finished
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
