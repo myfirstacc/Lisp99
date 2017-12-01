@@ -767,7 +767,7 @@ ______________________________________________________________ 25 - Result is NI
 (defun RandomExtract (somelist times &optional (newlist (list)) (rndst (make-random-state)) (len (ListLength somelist)))
     (if (= times 0)
         (return-from RandomExtract newlist)
-        (and
+        (progn
             (setq rndst (make-random-state t))
             (setq rnum (+ (random len rndst) 1))
             (setq newlist (append newlist (list (KEL somelist rnum))))
