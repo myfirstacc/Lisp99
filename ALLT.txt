@@ -1,5 +1,7 @@
 ____________________________________________________________ 1&2
 
+Find the last box of a list. Find the last but one box of a list.
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -20,6 +22,8 @@ ____________________________________________________________ 1&2
 
 _____________________________________________________________ 3
 
+Find the K'th element of a list. 
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -39,6 +43,8 @@ _____________________________________________________________ 3
 (print K)
 _____________________________________________________________ 4
 
+Find the number of elements of a list.
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -51,6 +57,8 @@ _____________________________________________________________ 4
 (print len)
 
 _____________________________________________________________ 5
+
+Reverse a list.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -84,6 +92,8 @@ _____________________________________________________________ 5
 
 _____________________________________________________________ 6
 
+Find out whether a list is a palindrome.
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -111,6 +121,8 @@ _____________________________________________________________ 6
 (print (isPalindrom mylist))
 
 _____________________________________________________________ 7
+
+Transform a list, possibly holding lists as elements into a `flat' list by replacing each list with its elements (recursively).
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -159,6 +171,8 @@ _____________________________________________________________ 7
 (print myhardlist)
 ______________________________________________________________ 8
 
+If a list contains repeated elements they should be replaced with a single copy of the element. The order of the elements should not be changed.
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -203,6 +217,8 @@ ______________________________________________________________ 8
 
 ______________________________________________________________ 9 
 
+If a list contains repeated elements they should be placed in separate sublists.
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -238,6 +254,9 @@ ______________________________________________________________ 9
 (setq mylist (list 'a 'a 'a 'b 'c 'zz 'zz 'a 'a 'zz))
 (print (PlaceIntoSubt mylist))
 ______________________________________________________________ 10&11
+
+Use the result of problem P09 to implement the so-called run-length encoding data compression method. Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
+Modify the result of problem P10 in such a way that if an element has no duplicates it is simply copied into the result list. Only elements with duplicates are transferred as (N E) lists.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -303,6 +322,8 @@ ______________________________________________________________ 10&11
 
 ______________________________________________________________ 12
 
+Given a run-length code list generated as specified in problem P11. Construct its uncompressed version.
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -343,7 +364,7 @@ ______________________________________________________________ 12
 
 ______________________________________________________________ 13 What is the task (probably solution of task 9 is correct)
 
-
+Implement the so-called run-length encoding data compression method directly. I.e. don't explicitly create the sublists containing the duplicates, as in problem P09, but only count them. As in problem P11, simplify the result list by replacing the singleton lists (1 X) by X.
 
 
 
@@ -363,6 +384,8 @@ ______________________________________________________________ 13 What is the ta
 
 
 _______________________________________________________________ 14&15
+
+Duplicate the elements of a list. Replicate the elements of a list a given number of times.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -411,6 +434,8 @@ _______________________________________________________________ 14&15
 
 _______________________________________________________________ 16
 
+Drop every N'th element from a list. 
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -442,6 +467,8 @@ _______________________________________________________________ 16
 (print (DropEls mylist 4))
 
 ______________________________________________________________ 17 
+
+Split a list into two parts; the length of the first part is given.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -481,6 +508,8 @@ ______________________________________________________________ 17
 
 ______________________________________________________________ 18
 
+Given two indices, I and K, the slice is the list containing the elements between the I'th and K'th element of the original list (both limits included). Start counting the elements with 1.
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -515,6 +544,8 @@ ______________________________________________________________ 18
 (print (Slice mylist 4 7))
 
 ______________________________________________________________ 19 
+
+Rotate a list N places to the left.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -558,6 +589,8 @@ ______________________________________________________________ 19
 
 ______________________________________________________________ 20 
 
+Remove the K'th element from a list.
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -599,6 +632,8 @@ ______________________________________________________________ 20
 (print (RemoveNEl mylist 4))
 
 ______________________________________________________________ 21
+
+Insert an element at a given position into a list.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -642,6 +677,8 @@ ______________________________________________________________ 21
 
 _______________________________________________________________ 22
 
+Create a list containing all integers within a given range.
+
 (defun InRange (min max &optional (newlist (list)))
     (if (> min max)
         (return-from InRange newlist)
@@ -656,6 +693,8 @@ _______________________________________________________________ 22
 (print mylist)
 
 _______________________________________________________________ 23
+
+Extract a given number of randomly selected elements from a list.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -711,6 +750,8 @@ _______________________________________________________________ 23
 
 ______________________________________________________________ 24
 
+Draw N different random numbers from the set 1..M.
+
 (defun CreateRList (nums upl &optional crlist (rndst (make-random-state)))
     (if (= nums 0)
         (return-from CreateRList crlist)
@@ -727,6 +768,8 @@ ______________________________________________________________ 24
 (print mylist)
 
 ______________________________________________________________ 25
+
+Generate a random permutation of the elements of a list.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -782,6 +825,8 @@ ______________________________________________________________ 25
 
 ________________________________________________________________ 26 Not Correct - Result is a number of possible combinations
 
+In how many ways can a committee of 3 be chosen from a group of 12 people? We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the well-known binomial coefficients). For pure mathematicians, this result may be great. But we want to really generate all the possibilities in a list.
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -807,7 +852,8 @@ ________________________________________________________________ 26 Not Correct 
 
 ________________________________________________________________ 27
 
-
+In how many ways can a group of 9 people work in 3 disjoint subgroups of 2, 3 and 4 persons? Write a function that generates all the possibilities and returns them in a list.
+Generalize the above predicate in a way that we can specify a list of group sizes and the predicate will return a list of groups.
 
 
 
@@ -829,6 +875,9 @@ ________________________________________________________________ 27
 
 
 ______________________________________________________________ 28 Second part is not finished
+
+We suppose that a list contains elements that are lists themselves. The objective is to sort the elements of this list according to their length. E.g. short lists first, longer lists later, or vice versa.
+Again, we suppose that a list contains elements that are lists themselves. But this time the objective is to sort the elements of this list according to their length frequency; i.e., in the default, where sorting is done ascendingly, lists with rare lengths are placed first, others with a more frequent length come later.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
