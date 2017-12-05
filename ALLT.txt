@@ -984,6 +984,8 @@ Again, we suppose that a list contains elements that are lists themselves. But t
 (print (LSort mylist))
 ______________________________________________________________ 31
 
+Determine whether a given integer number is prime.
+
 (defun IsPrime (num &optional (index 2))
     (if (>= index num)
         (return-from IsPrime 1)
@@ -996,6 +998,8 @@ ______________________________________________________________ 31
 (setq num 7)
 (print (IsPrime num))
 ____________________________________________________________________ 32&33
+
+Determine the greatest common divisor of two positive integer numbers. Determine whether two positive integer numbers are coprime.
 
 (defun GCD (x y)
     (if (= (rem x y) 0)
@@ -1013,6 +1017,8 @@ ____________________________________________________________________ 32&33
 (setq num2 14)
 (print (IsCoprime num1 num2))
 ____________________________________________________________________ 34
+
+Calculate Euler's totient function phi(m). Euler's so-called totient function phi(m) is defined as the number of positive integers r (1 <= r < m) that are coprime to m.
 
 (defun GCD (x y)
     (if (= (rem x y) 0)
@@ -1040,6 +1046,8 @@ ____________________________________________________________________ 34
 (print (Phi somenum))
 ____________________________________________________________________ 35
 
+Determine the prime factors of a given positive integer. Construct a flat list containing the prime factors in ascending order.
+
 (defun PrimeFlist (num &optional (fact 2) (crlist (list 1)))
     (if (= num 1)
         (return-from PrimeFlist crlist)
@@ -1053,6 +1061,9 @@ ____________________________________________________________________ 35
 (setq prfactlist (PrimeFlist num))
 (print prfactlist)
 ____________________________________________________________________ 36
+
+Determine the prime factors of a given positive integer.
+Construct a list containing the prime factors and their multiplicity.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -1108,6 +1119,9 @@ ____________________________________________________________________ 36
 
 ____________________________________________________________________ 37 Wrong Algorithm
 
+Calculate Euler's totient function phi(m) (improved).
+phi(m) = (p1 - 1) * p1 ** (m1 - 1) + (p2 - 1) * p2 ** (m2 - 1) + (p3 - 1) * p3 ** (m3 - 1) + ...
+
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
         (return-from ListLength numofel)
@@ -1134,7 +1148,7 @@ ____________________________________________________________________ 37 Wrong Al
 )
 ____________________________________________________________________ 38 Wrong Algorithm In Task 37
 
-
+Use the solutions of problems P34 and P37 to compare the algorithms. Take the number of logical inferences as a measure for efficiency.
 
 
 
@@ -1144,6 +1158,8 @@ ____________________________________________________________________ 38 Wrong Al
 
 
 ____________________________________________________________________ 39
+
+Given a range of integers by its lower and upper limit, construct a list of all prime numbers in that range.
 
 (defun IsPrime (num &optional (index 2))
     (if (>= index num)
@@ -1167,6 +1183,9 @@ ____________________________________________________________________ 39
 (setq max 17)
 (print (AllPrimesIn min max))
 _____________________________________________________________________ 40&41
+
+Goldbach's conjecture says that every positive even number greater than 2 is the sum of two prime numbers.
+Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
@@ -1240,6 +1259,9 @@ _____________________________________________________________________ 40&41
 
 __________________________________________________________________ 46
 
+Define predicates and/2, or/2, nand/2, nor/2, xor/2, impl/2 and equ/2 (for logical equivalence).
+Now, write a predicate table/3 which prints the truth table of a given logical expression in two variables.
+
 (defun andf (A B)
     (if (= A 0)
         (return-from andf 0)
@@ -1310,7 +1332,39 @@ __________________________________________________________________ 46
     )
 )
 
+__________________________________________________________________ 47
+
+Continue problem P46 by defining and/2, or/2, etc as being operators. This allows to write the logical expression in the more natural way, as in the example: A and (A or not B).
+
+
+
+
+
+
+
+
+
+
+
+__________________________________________________________________ 48
+
+Generalize problem P47 in such a way that the logical expression may contain any number of logical variables.
+
+
+
+
+
+
+
+
+
+
+
+
 __________________________________________________________________ 49 Not Correct - In result elements are not lists
+
+An n-bit Gray code is a sequence of n-bit strings constructed according to certain rules. For example,
+n = 1: C(1) = ['0','1'].
 
 (defun Pow (num power &optional (hn num))
     (if (= power 0)
@@ -1352,3 +1406,7 @@ __________________________________________________________________ 49 Not Correc
 (setq mynum 100)
 (setq mylist (GrayFunc mynum))
 (print mylist)
+
+_______________________________________________________________________ 50
+
+We suppose a set of symbols with their frequencies, given as a list of fr(S,F) terms. Example: [fr(a,45),fr(b,13),fr(c,12),fr(d,16),fr(e,9),fr(f,5)]. Our objective is to construct a list hc(S,C) terms, where C is the Huffman code word for the symbol S. In our example, the result could be Hs = [hc(a,'0'), hc(b,'101'), hc(c,'100'), hc(d,'111'), hc(e,'1101'), hc(f,'1100')] [hc(a,'01'),...etc.]
