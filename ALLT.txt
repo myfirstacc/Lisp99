@@ -655,7 +655,7 @@ _______________________________________________________________ 22
 (setq mylist (InRange 1 9))
 (print mylist)
 
-_______________________________________________________________ 23 Change "and" on "progn" for RandomPerm (task 25)
+_______________________________________________________________ 23
 
 (defun ListLength (somelist &optional (numofel 0))
     (if (null somelist)
