@@ -953,6 +953,16 @@ Again, we suppose that a list contains elements that are lists themselves. But t
     )
 )
 
+(defun AreIn (somelist condv &optional (index 1))
+    (if (> index (ListLength somelist))
+        (return-from AreIn 0)
+        (if (equal (KEL somelist index) condv)
+            (return-from AreIn 1)
+            (AreIn somelist condv (+ index 1))
+        )
+    )
+)
+
 (setq mylist (list (list 'a 'b) (list 'c 'd 'e) (list 'z 'z) (list 'p) (list 'a 'v 'd 'g)))
 (print (LSort mylist))
 ______________________________________________________________ 31
