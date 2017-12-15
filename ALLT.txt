@@ -963,6 +963,40 @@ Again, we suppose that a list contains elements that are lists themselves. But t
     )
 )
 
+(defun LFTransform (somelist &optional (newlist (list )) (trlist (LLTransform somelist)) (index (ListLength somelist)) (currel (KEL trlist 1)) (counter 0) (hpv 1))
+    (if (= index 0)
+        (return-from LFTransform newlist)
+        (if (= (AreIn trlist currel) 1)
+            (progn
+                (if (= (KEL trlist hpv) currel)
+                    (progn
+                        (setq trlist (RemoveNEl trlist hpv))
+                        (setq counter (+ counter 1))
+                    )
+                )
+                (if (> (+ hpv 1) (ListLength trlist))
+                    (setq hpv 1)
+                    (setq hpv (+ hpv 1))
+                )
+                (LFTransform somelist newlist trlist index currel counter hpv)
+            )
+            (progn
+                (setq newlist (append newlist (list (list counter currel))))
+                (if (null trlist)
+                    (return-from LFTransform newlist)
+                    (progn
+                        (setq index (- index 1))
+                        (setq counter 0)
+                        (setq hpv 1)
+                        (setq currel (KEL trlist hpv))
+                        (LFTransform somelist newlist trlist index currel counter hpv)
+                    )
+                )
+            )
+        )
+    )
+)
+
 (setq mylist (list (list 'a 'b) (list 'c 'd 'e) (list 'z 'z) (list 'p) (list 'a 'v 'd 'g)))
 (print (LSort mylist))
 ______________________________________________________________ 31
