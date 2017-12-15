@@ -997,8 +997,10 @@ Again, we suppose that a list contains elements that are lists themselves. But t
     )
 )
 
-(setq mylist (list (list 'a 'b) (list 'c 'd 'e) (list 'z 'z) (list 'p) (list 'a 'v 'd 'g)))
-(print (LSort mylist))
+(setq mylist (list (list 'a 'b) (list 'zaz) (list 'c 'd 'e) (list 'z 'z) (list 'boo) (list 'b 'b 'b 'b) (list 'p) (list 'a 'v 'd 'g)))
+(print mylist)
+(print (LLTransform mylist))
+(print (LFTransform mylist))
 ______________________________________________________________ 31
 
 Determine whether a given integer number is prime.
