@@ -997,6 +997,23 @@ Again, we suppose that a list contains elements that are lists themselves. But t
     )
 )
 
+(defun FindPos (somelist elem &optional (pos 1))
+    (if (> elem (KEL somelist pos))
+        (FindPos somelist elem (+ pos 1))
+        (return-from FindPos pos)
+    )
+)
+
+(defun LastSort (somelist &optional (newlist (list )) (index (ListLength somelist)))
+    (if (= index 0)
+        (return-from LastSort newlist)
+        (progn
+            (setq newlist (InsertIn newlist (FindPos newlist (KEL (KEL somelist index) 1))))
+            (LastSort somelist newlist (- index 1))
+        )
+    )
+)
+
 (setq mylist (list (list 'a 'b) (list 'zaz) (list 'c 'd 'e) (list 'z 'z) (list 'boo) (list 'b 'b 'b 'b) (list 'p) (list 'a 'v 'd 'g)))
 (print mylist)
 (print (LLTransform mylist))
