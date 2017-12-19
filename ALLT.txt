@@ -1268,7 +1268,6 @@ Given a range of integers by its lower and upper limit, print a list of all even
                     (setq hp (KEL (GoldFunc min) 2))
                     (if (> lp limit)
                         (format t "~D = ~D + ~D~%" min lp hp)
-                        (princ "")
                     )
                 )
             )
