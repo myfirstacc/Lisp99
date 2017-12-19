@@ -109,7 +109,7 @@ Find out whether a list is a palindrome.
 )
 
 (defun IsPalindrom (somelist &optional (len (ListLength somelist)) (checknums 1))
-    (if (eq (KEL somelist checknums) (KEL somelist (+ (- len checknums) 1)))
+    (if (equal (KEL somelist checknums) (KEL somelist (+ (- len checknums) 1)))
         (if (>= (+ (mod 2 checknums) 1) (/ len 2))
             (return-from IsPalindrom 1)
             (IsPalindrom somelist len (+ checknums 1))
@@ -191,7 +191,7 @@ If a list contains repeated elements they should be replaced with a single copy 
 )
 
 (defun FirstRepEl (somelist &optional (hm 1))
-    (if (eq (KEL somelist hm) (KEL somelist (+ hm 1)))
+    (if (equal (KEL somelist hm) (KEL somelist (+ hm 1)))
         (FirstRepEl somelist (+ hm 1))
         (return-from FirstRepEl hm)
     )
@@ -232,7 +232,7 @@ If a list contains repeated elements they should be placed in separate sublists.
 (defun PlaceIntoSubt (somelist &optional (newlist (list)) (sml (list)) (currel (KEL somelist 1)) (tr 1) (index 1))
     (if (> index (ListLength somelist))
         (return-from PlaceIntoSubt newlist)
-        (if (eql currel (KEL somelist (+ index 1)))
+        (if (equal currel (KEL somelist (+ index 1)))
             (PlaceIntoSubt somelist newlist (list ) currel (+ tr 1) (+ index 1))
             (progn
                 (loop
@@ -276,7 +276,7 @@ Modify the result of problem P10 in such a way that if an element has no duplica
 )
 
 (defun FirstRepEl (somelist &optional (hm 1))
-    (if (eq (KEL somelist hm) (KEL somelist (+ hm 1)))
+    (if (equal (KEL somelist hm) (KEL somelist (+ hm 1)))
         (FirstRepEl somelist (+ hm 1))
         (return-from FirstRepEl hm)
     )
